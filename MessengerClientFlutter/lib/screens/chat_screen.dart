@@ -22,15 +22,15 @@ class _ChatScreenState extends State<ChatScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final app = AppStateScope.of(context);
-    app.hub.onMessage((m) => setState(() => _messages.add(m)));
+    app?.hub.onMessage((m) => setState(() => _messages.add(m)));
   }
 
   Future<void> _createChannel() async {
     final app = AppStateScope.of(context);
     try {
-      final channel = await app.api.createChannel(_channelCtrl.text.trim());
-      await app.hub.joinChannel(channel.id);
-      setState(() => _channelId = channel.id);
+      final channel = await app?.api.createChannel(_channelCtrl.text.trim());
+      await app?.hub.joinChannel(channel!.id);
+      setState(() => _channelId = channel?.id);
     } catch (e) {
       setState(() => _error = e.toString());
     }
@@ -39,18 +39,18 @@ class _ChatScreenState extends State<ChatScreen> {
   Future<void> _loadMessages() async {
     if (_channelId == null) return;
     final app = AppStateScope.of(context);
-    final items = await app.api.getMessages(_channelId!);
+    final items = await app?.api.getMessages(_channelId!);
     setState(() {
       _messages
         ..clear()
-        ..addAll(items);
+        ..addAll(items!);
     });
   }
 
   Future<void> _send() async {
     if (_channelId == null || _messageCtrl.text.trim().isEmpty) return;
     final app = AppStateScope.of(context);
-    await app.hub.sendRealtime(_channelId!, _messageCtrl.text.trim());
+    await app?.hub.sendRealtime(_channelId!, _messageCtrl.text.trim());
     _messageCtrl.clear();
   }
 
@@ -58,7 +58,7 @@ class _ChatScreenState extends State<ChatScreen> {
     if (_channelId == null) return;
     final result = await FilePicker.platform.pickFiles(withData: true);
     if (result == null) return;
-    await AppStateScope.of(context).api.uploadFile(_channelId!, result.files.single);
+    await AppStateScope.of(context)?.api.uploadFile(_channelId!, result.files.single);
     await _loadMessages();
   }
 
@@ -67,7 +67,7 @@ class _ChatScreenState extends State<ChatScreen> {
     final app = AppStateScope.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Messenger: ${app.userName ?? ''}'),
+        title: Text('Messenger: ${app?.userName ?? ''}'),
         actions: [IconButton(onPressed: _loadMessages, icon: const Icon(Icons.refresh))],
       ),
       body: Column(

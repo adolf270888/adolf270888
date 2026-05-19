@@ -2,11 +2,14 @@
   "profiles": {
     "MessengerServer": {
       "commandName": "Project",
+      "dotnetRunMessages": true,
       "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:50291;http://localhost:50292",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "https://localhost:50291;http://localhost:50292"
+      }
+      
     }
   }
 }

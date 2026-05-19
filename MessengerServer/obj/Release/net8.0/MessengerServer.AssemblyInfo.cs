@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MessengerServer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+38660bb353d77b6fb5c04c7c874d478028bffcb2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cd1203576878d572ec62c7668ccbb77e281eaaf9")]
 [assembly: System.Reflection.AssemblyProductAttribute("MessengerServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MessengerServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

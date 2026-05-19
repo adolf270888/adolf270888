@@ -8,15 +8,13 @@ typedef SignalCallback = void Function(Map<String, dynamic> signal);
 class ChatHubService {
   HubConnection? _connection;
 
-  Future<void> connect({
-    required String serverUrl,
-    required String token,
-  }) async {
+  Future<void> connect({required String serverUrl, required String token}) async {
     _connection = HubConnectionBuilder()
         .withUrl(
           '$serverUrl/hubs/chat?access_token=$token',
           options: HttpConnectionOptions(
             transport: HttpTransportType.WebSockets,
+            logging: (level, message) {},
           ),
         )
         .withAutomaticReconnect()
@@ -48,17 +46,13 @@ class ChatHubService {
     await _connection?.invoke('SendToChannel', args: [channelId, text]);
   }
 
-  Future<void> sendCallSignal(
-    String channelId,
-    String type,
-    String payload,
-  ) async {
+  Future<void> sendCallSignal(String channelId, String type, String payload) async {
     await _connection?.invoke('SendCallSignal', args: [channelId, type, payload]);
   }
 
   Future<void> disconnect() async {
     await _connection?.stop();
-     
+    await _connection?.dispose();
     _connection = null;
   }
 }

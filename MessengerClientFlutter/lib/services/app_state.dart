@@ -9,7 +9,7 @@ class AppState extends ChangeNotifier {
 
   String? token;
   String? userName;
-  String baseUrl = 'https://localhost:50291/';
+  String baseUrl = 'https://localhost:5001';
 
   Future<void> setSession({required String authToken, required String user, required String serverUrl}) async {
     token = authToken;
@@ -29,16 +29,11 @@ class AppState extends ChangeNotifier {
 }
 
 class AppStateScope extends InheritedNotifier<AppState> {
-  const AppStateScope({required super.child, super.key, required AppState state});
-  
-  AppState? get state => null;
+  const AppStateScope({required super.notifier, required super.child, super.key});
 
-  static AppState? of(BuildContext context) {
+  static AppState of(BuildContext context) {
     final scope = context.dependOnInheritedWidgetOfExactType<AppStateScope>();
-    if (scope == null) {
-    print('Warning: AppStateScope not found. Using fallback state.');
-    return null; // Или возвращайте дефолтное состояние
-  }
-  return scope.state;
+    assert(scope != null, 'AppStateScope not found');
+    return scope!.notifier!;
   }
 }

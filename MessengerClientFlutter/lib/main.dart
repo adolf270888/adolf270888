@@ -3,11 +3,7 @@ import 'screens/login_screen.dart';
 import 'services/app_state.dart';
 
 void main() {
-  runApp(AppStateScope(
-      state: AppState(), // Инициализация состояния
-      child: const MessengerApp(),
-    )
-    );
+  runApp(const MessengerApp());
 }
 
 class MessengerApp extends StatelessWidget {
@@ -18,8 +14,10 @@ class MessengerApp extends StatelessWidget {
     return MaterialApp(
       title: 'Messenger Client',
       theme: ThemeData(colorSchemeSeed: Colors.indigo, useMaterial3: true),
-      home: const LoginScreen(),
-      );
-    
+      home: AppStateScope(
+        notifier: AppState(),
+        child: const LoginScreen(),
+      ),
+    );
   }
 }

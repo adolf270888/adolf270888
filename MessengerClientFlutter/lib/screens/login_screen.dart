@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '/services/app_state.dart';
+import '../services/app_state.dart';
 import 'chat_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -11,7 +11,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _serverCtrl = TextEditingController(text: 'https://localhost:50291');
+  final _serverCtrl = TextEditingController(text: 'https://localhost:5001');
   final _userCtrl = TextEditingController();
   final _passCtrl = TextEditingController();
   bool _isLogin = true;
@@ -26,10 +26,10 @@ class _LoginScreenState extends State<LoginScreen> {
     final app = AppStateScope.of(context);
     try {
       final auth = _isLogin
-          ? await app?.api.login(_userCtrl.text.trim(), _passCtrl.text, _serverCtrl.text.trim())
-          : await app?.api.register(_userCtrl.text.trim(), _passCtrl.text, _serverCtrl.text.trim());
+          ? await app.api.login(_userCtrl.text.trim(), _passCtrl.text, _serverCtrl.text.trim())
+          : await app.api.register(_userCtrl.text.trim(), _passCtrl.text, _serverCtrl.text.trim());
 
-      await app?.setSession(authToken: auth!.token, user: _userCtrl.text.trim(), serverUrl: _serverCtrl.text.trim());
+      await app.setSession(authToken: auth.token, user: _userCtrl.text.trim(), serverUrl: _serverCtrl.text.trim());
 
       if (!mounted) return;
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const ChatScreen()));
